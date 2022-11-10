@@ -5,6 +5,7 @@ import numpy as np
 # Create your views here.
 
 def vector(request):
+    a = int(request.GET.get('a', None))
     size = request.GET.get('size', None)
 
     if size is None:
@@ -41,9 +42,9 @@ def vector(request):
 
         new_matrix.append(row)
 
-    new_matrix = np.linalg.eigh(new_matrix)
+    new_matrix = [[value * a for value in num] for num in new_matrix]
 
     '''new_matrix = '<br/><br/>'.join(['&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.join(map(str,row)) for row in vector_matrix])
     new_matrix = '<p style=\"font-size:20pt;\">'+vector_matrix_str+'</p>'''
 
-    return HttpResponse(f"Собсвтенные числа и векторы равны: {new_matrix}")
+    return HttpResponse(f"Новая матрица равна: {new_matrix}")
